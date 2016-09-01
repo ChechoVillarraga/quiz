@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <head>
+        <title>Ingresa a nuestro servicio</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <h:outputStylesheet library="css" name="bootstrap.min.css"/>
+        <h:outputScript library="scripts" name="jquery-2.1.1.min.js"/>
+        <h:outputScript library="scripts" name="jquery.js"/>
+        <h:outputScript library="scripts" name="bootstrap.min.js"/>
+    </head>
+    <body>
+        <div><h1>Bienvenido a tu aplicacion de correos</h1></div>
+
+        <f:view>
+            <h:form>
+                <h:panelGrid columns="2" columnClasses="column">
+                    <p:outputLabel value="Ingresa tu correo" for="correoe" />
+                    <p:inputText 
+                        id="correoe" 
+                        value="#{loginController.user}" 
+                        placeholder="Ejemplo@correo.com" 
+                        size="20" maxlength="45"
+                        class="form-control"
+                        />
+
+                    <p:outputLabel value="Tu contraseña" for="password" />
+                    <p:password
+                        id="password" 
+                        value="#{loginController.pwd}" 
+                        placeholder="+++++++" 
+                        size="20" 
+                        maxlength="20"
+                        class="form-control"
+                        />
+
+                    <h:commandButton value="Ingresar" action="#{loginController.validateUsernamePassword()}" class="btn btn-lg btn-success btn-block"/>
+                </h:panelGrid>
+            </h:form>
+        </f:view>
+
+
+    </body>
+</html>

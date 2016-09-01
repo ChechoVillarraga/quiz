@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <body>
+
+        <ui:composition template="./../../WEB-INF/templates/userTemplate.xhtml">
+
+            <ui:define name="content">
+
+                <f:view>
+
+                    <h:form>
+                        <h1><h:outputText value="Create/Edit"/></h1>
+                        <p:panelGrid columns="2">
+
+                            <p:outputLabel value="Para:" />
+                            <p:selectOneMenu style="width:320px;margin-top:10px" value="#{enviarController.persona.correoe}">
+                                <f:selectItems value="#{correoController.itemsAvailableSelectOne}" />
+                            </p:selectOneMenu>
+
+
+                            <p:outputLabel value="Asunto:" for="asunto" />
+                            <p:inputText id="asunto" value="#{enviarController.correo.asunto}" title="Asunto" />
+
+
+                            <p:outputLabel value="Mensaje:" for="mensaje" />
+                            <p:inputTextarea rows="5" cols="30" counter="display" maxlength="200" counterTemplate="{0} characters remaining." autoResize="false" value="#{enviarController.correo.mensaje}"/>
+                            <h:outputText id="display" />
+
+                        </p:panelGrid>
+                        <p:commandButton action="#{enviarController.enviarCorreo()}" value="Enviar"/>
+                    </h:form>
+                </f:view>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

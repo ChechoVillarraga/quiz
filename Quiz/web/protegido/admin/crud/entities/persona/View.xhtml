@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PersonaViewDlg" widgetVar="PersonaViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewPersonaTitle}" closeOnEscape="true">
+
+            <h:form id="PersonaViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{personaController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewPersonaLabel_cedula}"/>
+                        <h:outputText value="#{personaController.selected.cedula}" title="#{myBundle.ViewPersonaTitle_cedula}"/>
+
+                        <h:outputText value="#{myBundle.ViewPersonaLabel_nombres}"/>
+                        <h:outputText value="#{personaController.selected.nombres}" title="#{myBundle.ViewPersonaTitle_nombres}"/>
+
+                        <h:outputText value="#{myBundle.ViewPersonaLabel_apellidos}"/>
+                        <h:outputText value="#{personaController.selected.apellidos}" title="#{myBundle.ViewPersonaTitle_apellidos}"/>
+
+                        <h:outputText value="#{myBundle.ViewPersonaLabel_correoe}"/>
+                        <h:outputText value="#{personaController.selected.correoe}" title="#{myBundle.ViewPersonaTitle_correoe}"/>
+
+                        <h:outputText value="#{myBundle.ViewPersonaLabel_telefono}"/>
+                        <h:outputText value="#{personaController.selected.telefono}" title="#{myBundle.ViewPersonaTitle_telefono}"/>
+
+                        <h:outputText value="#{myBundle.ViewPersonaLabel_password}"/>
+                        <h:outputText value="#{personaController.selected.password}" title="#{myBundle.ViewPersonaTitle_password}"/>
+
+                        <h:outputText value="#{myBundle.ViewPersonaLabel_rolIdrol}"/>
+                        <h:outputText value="#{personaController.selected.rolIdrol.idrol}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('PersonaViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CorreoViewDlg" widgetVar="CorreoViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewCorreoTitle}" closeOnEscape="true">
+
+            <h:form id="CorreoViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{correoController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewCorreoLabel_idcorreo}"/>
+                        <h:outputText value="#{correoController.selected.idcorreo}" title="#{myBundle.ViewCorreoTitle_idcorreo}"/>
+
+                        <h:outputText value="#{myBundle.ViewCorreoLabel_asunto}"/>
+                        <h:outputText value="#{correoController.selected.asunto}" title="#{myBundle.ViewCorreoTitle_asunto}"/>
+
+                        <h:outputText value="#{myBundle.ViewCorreoLabel_mensaje}"/>
+                        <h:outputText value="#{correoController.selected.mensaje}" title="#{myBundle.ViewCorreoTitle_mensaje}"/>
+
+                        <h:outputText value="#{myBundle.ViewCorreoLabel_fechaEnvio}"/>
+                        <h:outputText value="#{correoController.selected.fechaEnvio}" title="#{myBundle.ViewCorreoTitle_fechaEnvio}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewCorreoLabel_personaList}"/>
+                        <h:selectManyMenu converter="personaConverter">
+                            <f:selectItems value="#{correoController.selected.personaList}"
+                                           var="personaListItem"
+                                           itemValue="#{personaListItem}"
+                                           itemLabel="#{personaListItem.cedula.toString()}"
+                                           />
+
+                        </h:selectManyMenu>
+
+                        <h:outputText value="#{myBundle.ViewCorreoLabel_estadoList}"/>
+                        <h:selectManyMenu converter="estadoConverter">
+                            <f:selectItems value="#{correoController.selected.estadoList}"
+                                           var="estadoListItem"
+                                           itemValue="#{estadoListItem}"
+                                           itemLabel="#{estadoListItem.idestado.toString()}"
+                                           />
+
+                        </h:selectManyMenu>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('CorreoViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

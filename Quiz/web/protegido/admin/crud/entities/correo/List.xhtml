@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="CorreoListForm">
+
+        <p:panel header="#{myBundle.ListCorreoTitle}">
+            <p:contextMenu id="CorreoDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('CorreoListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('CorreoListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('CorreoListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('CorreoListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.CorreoMenuItem_personaList}" icon="ui-icon-search"  action="#{correoController.navigatePersonaList}" disabled="#{empty correoController.selected.personaList}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.CorreoMenuItem_estadoList}" icon="ui-icon-search"  action="#{correoController.navigateEstadoList}" disabled="#{empty correoController.selected.estadoList}" ajax="false"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{correoController.items}"
+                         lazy="false"
+                         rowKey="#{item.idcorreo}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{correoController.selected}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{correoController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.idcorreo}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:CorreoDataTableContextMenu"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:CorreoDataTableContextMenu"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('CorreoListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.idcorreo}" filterBy="#{item.idcorreo}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListCorreoTitle_idcorreo}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idcorreo}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.asunto}" filterBy="#{item.asunto}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListCorreoTitle_asunto}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.asunto}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.mensaje}" filterBy="#{item.mensaje}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListCorreoTitle_mensaje}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.mensaje}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.fechaEnvio}" filterBy="#{item.fechaEnvio}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListCorreoTitle_fechaEnvio}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.fechaEnvio}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                </p:column>
+
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{correoController.prepareCreate}" update=":CorreoCreateForm" oncomplete="PF('CorreoCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":CorreoViewForm" oncomplete="PF('CorreoViewDialog').show()" disabled="#{empty correoController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":CorreoEditForm" oncomplete="PF('CorreoEditDialog').show()" disabled="#{empty correoController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{correoController.delete}" update=":growl,datalist" disabled="#{empty correoController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/protegido/admin/crud/generic/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>
