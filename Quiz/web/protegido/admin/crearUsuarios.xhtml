@@ -6,7 +6,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 
-    <body>
+    <h:body>
 
         <ui:composition template="./../../WEB-INF/templates/adminTemplate.xhtml">
 
@@ -17,25 +17,34 @@
 
                     <h:form>
                         <h1><h:outputText value="Create/Edit"/></h1>
-                        <p:panelGrid columns="2">
-                            <p:outputLabel value="Cedula:" for="cedula" />
-                            <p:inputText id="cedula" value="#{usuarioController.persona.cedula}" title="Cedula" required="true" requiredMessage="The Cedula field is required."/>
-                            <p:outputLabel value="Nombres:" for="nombres" />
-                            <p:inputText id="nombres" value="#{usuarioController.persona.nombres}" title="Nombres" />
-                            <p:outputLabel value="Apellidos:" for="apellidos" />
-                            <p:inputText id="apellidos" value="#{usuarioController.persona.apellidos}" title="Apellidos" />
-                            <p:outputLabel value="Correoe:" for="correoe" />
-                            <p:inputText id="correoe" value="#{usuarioController.persona.correoe}" title="Correoe" />
-                            <p:outputLabel value="Telefono:" for="telefono" />
-                            <p:inputText id="telefono" value="#{usuarioController.persona.telefono}" title="Telefono" />
-                            <p:outputLabel value="Password:" for="password" />
-                            <p:inputText id="password" value="#{usuarioController.persona.password}" title="Password" />
-                            <p:outputLabel value="RolIdrol:" for="rolIdrol" />
-                            <p:selectOneMenu id="rolIdrol" value="#{usuarioController.persona.rolIdrol}" required="true" requiredMessage="The RolIdrol field is required.">
-                                <!-- TODO: update below reference to list of available items-->
-                                <f:selectItems value="#{fixme}"/>
-                            </p:selectOneMenu>
-                        </p:panelGrid>
+                        <h:panelGrid columns="2">
+                            <h:outputLabel value="Cedula:" for="cedula" />
+                            <h:inputText id="cedula" value="#{usuarioController.persona.cedula}" title="Cedula" required="true" requiredMessage="The Cedula field is required."/>
+                            <h:outputLabel value="Nombres:" for="nombres" />
+                            <h:inputText id="nombres" value="#{usuarioController.persona.nombres}" title="Nombres" />
+                            <h:outputLabel value="Apellidos:" for="apellidos" />
+                            <h:inputText id="apellidos" value="#{usuarioController.persona.apellidos}" title="Apellidos" />
+                            <h:outputLabel value="Correoe:" for="correoe" />
+                            <h:inputText id="correoe" value="#{usuarioController.persona.correoe}" title="Correoe" />
+                            <h:outputLabel value="Telefono:" for="telefono" />
+                            <h:inputText id="telefono" value="#{usuarioController.persona.telefono}" title="Telefono" />
+                            <h:outputLabel value="Password:" for="password" />
+                            <h:inputText id="password" value="#{usuarioController.persona.password}" title="Password" />
+
+                            <h:outputLabel for="rol" value="Seleccione un rol:" />
+                            <h:selectOneMenu id="rol" 
+                                             value="#{usuarioController.persona.rolIdrol}"
+                                             >
+                                <f:selectItems value="#{rolController.itemsAvailableSelectOne}" 
+                                               var="r"
+                                               itemValue="#{r.idrol}"
+                                               itemLabel="#{r.rol}"
+                                               />
+
+                            </h:selectOneMenu>
+                            <h:commandButton value="Registrar" action="#{usuarioController.registrarCliente()}"/>
+                        </h:panelGrid>
+
                     </h:form>
                 </f:view>
 
@@ -44,5 +53,5 @@
 
         </ui:composition>
 
-    </body>
+    </h:body>
 </html>

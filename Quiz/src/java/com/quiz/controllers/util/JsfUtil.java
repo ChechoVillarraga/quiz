@@ -11,6 +11,7 @@ import javax.faces.model.SelectItem;
 
 public class JsfUtil {
 
+    
     public static void addErrorMessage(Exception ex, String defaultMsg) {
         String msg = ex.getLocalizedMessage();
         if (msg != null && msg.length() > 0) {
